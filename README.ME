@@ -1,0 +1,81 @@
+#Aplicación de gestión de usuarios.
+
+#Indice.
+
+1. Nombre.
+2. Descripción.
+3. Tecnologias.
+4. Instalación.
+5. Cómo usar.
+
+
+#1. USER_MANAGEMENT
+
+#2. Es un  proyecto para gestionar usuarios. Se realizo un API RESTful para la creacion de usuarios; en donde todos los endpoints utilizan el formato JSOn para el request y response, inclusive para los mensajes de error. Todos los mensajes deben seguir el formato: {"mensaje": "mensaje de error"}.
+
+Registro de usuarios
+● Ese endpoint deberá recibir un usuario con los campos "nombre", "correo", "contraseña", más un listado de objetos "teléfono", respetando el siguiente formato:
+{
+	"name": "Juan Rodriguez",
+	"email": "juan@rodriguez.org",
+	"password": "hunter2",
+	"phones": [
+		{
+		"number": "1234567",
+		"citycode": "1",
+		"contrycode": "57"
+		}
+	]
+}
+
+● En caso de éxito, retorne el usuario y los siguientes campos:
+	○ id: id del usuario (puede ser lo que se genera por el banco de datos, pero sería más deseable un UUID)
+	○ created: fecha de creación del usuario
+	○ modified: fecha de la última actualización de usuario
+	○ last_login: del último ingreso (en caso de nuevo usuario, va a coincidir con la fecha de creación)
+	○ token: token de acceso de la API (puede ser UUID o JWT)
+	○ isactive: Indica si el usuario sigue habilitado dentro del sistema.
+● Si caso el correo conste en la base de datos, deberá retornar un error "El correo ya registrado".
+● El correo debe seguir una expresión regular para validar que formato sea el correcto. (aaaaaaa@dominio.cl)
+● La clave debe seguir una expresión regular para validar que formato sea el correcto. (El valor de la expresión regular debe ser configurable)
+● El token deberá ser persistido junto con el usuario 
+
+
+#3. Las tecnologias usadas:
+● Banco de datos en memoria, se ultilizo H2-Console.
+● Proceso de build vía Maven.
+● IDE Eclipse.
+● Persistencia con JPA. OpenJPA.
+● Framework SpringBoot.
+● Java 8+
+● Pruebas unitarias
+● Swagger
+
+#4. Instalación.
+
+1. Importar el proyecto en el ide de su preferencia, en mi caso utilice ECLIPSE.
+
+1.1. Abrir el ide, luego debe dar clic en el menu la opcion File -> importar -> Existing mavan project
+
+1.2. Ejecutar Run, ver consola para visualizar lo siguiente:
+
+1.2.1. INFO  Started UserManagementApplication in 3.766 seconds
+
+2. En el navegador colocar la direccion: 
+
+http://localhost:8081/h2-console/login.jsp?jsessionid=15551dd0d922f3e06773bb26084214d0
+
+2.1. aparece una ventana, se debe colocar los siguientes credenciales:
+
+Driver Class:org.h2.Driver	
+JDBC URL:jdbc:h2:mem:usermanagement
+User Name:sa
+Password:sa
+
+2.1.2. Dar clic en conexion.
+
+
+2.2. En el navegador colocar la direccion, para visualizar la documentación de Swagger:
+
+http://localhost:8081/swagger-ui.html
+  
